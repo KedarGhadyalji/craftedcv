@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 const Hero = () => {
   const [menuOpen, setMenuOpen] = React.useState(false);
 
-  const logos = [
-    "https://saasly.prebuiltui.com/assets/companies-logo/instagram.svg",
-    "https://saasly.prebuiltui.com/assets/companies-logo/framer.svg",
-    "https://saasly.prebuiltui.com/assets/companies-logo/microsoft.svg",
-    "https://saasly.prebuiltui.com/assets/companies-logo/huawei.svg",
-    "https://saasly.prebuiltui.com/assets/companies-logo/walmart.svg",
-  ];
+  // const logos = [
+  //   "https://saasly.prebuiltui.com/assets/companies-logo/instagram.svg",
+  //   "https://saasly.prebuiltui.com/assets/companies-logo/framer.svg",
+  //   "https://saasly.prebuiltui.com/assets/companies-logo/microsoft.svg",
+  //   "https://saasly.prebuiltui.com/assets/companies-logo/huawei.svg",
+  //   "https://saasly.prebuiltui.com/assets/companies-logo/walmart.svg",
+  // ];
 
   return (
     <>
@@ -215,11 +215,11 @@ const Hero = () => {
             </button>
           </div>
 
-          <p className="py-6 text-slate-600 mt-14">
+          {/* <p className="py-6 text-slate-600 mt-14">
             Trusting by leading brands, including
-          </p>
+          </p> */}
 
-          <div
+          {/* <div
             className="flex flex-wrap justify-between max-sm:justify-center gap-6 max-w-3xl w-full mx-auto py-4"
             id="logo-container"
           >
@@ -231,7 +231,7 @@ const Hero = () => {
                 className="h-6 w-auto max-w-xs"
               />
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
       <style>
