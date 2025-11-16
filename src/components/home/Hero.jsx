@@ -101,7 +101,7 @@ const Hero = () => {
 
           {/* Avatars + Stars */}
           <div className="flex items-center mt-24">
-            <div className="flex -space-x-3 pr-3">
+            {/* <div className="flex -space-x-3 pr-3">
               <img
                 src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200"
                 alt="user3"
@@ -127,9 +127,9 @@ const Hero = () => {
                 alt="user5"
                 className="size-8 rounded-full border-2 border-white hover:-translate-y-0.5 transition z-5"
               />
-            </div>
+            </div> */}
 
-            <div>
+            {/* <div>
               <div className="flex ">
                 {Array(5)
                   .fill(0)
@@ -153,7 +153,7 @@ const Hero = () => {
                   ))}
               </div>
               <p className="text-sm text-gray-700">Used by 10,000+ users</p>
-            </div>
+            </div> */}
           </div>
 
           {/* Headline + CTA */}
