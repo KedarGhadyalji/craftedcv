@@ -1,2 +1,0 @@
-For UI Components:
-1. Prebuilt UI - For (Banner, Hero Section)
