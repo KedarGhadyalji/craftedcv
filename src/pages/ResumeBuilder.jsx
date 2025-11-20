@@ -4,6 +4,8 @@ import { dummyResumeData } from "../assets/assets";
 import {
   ArrowLeftIcon,
   Briefcase,
+  ChevronLeft,
+  ChevronRight,
   FileText,
   FolderIcon,
   GraduationCap,
@@ -79,6 +81,38 @@ const ResumeBuilder = () => {
                   }%`,
                 }}
               />
+              {/* Section Navigation */}
+              <div className="flex justify-between items-center mb-6 border-b border-gray-300 py-1">
+                <div></div>
+                <div className="flex items-center">
+                  {activeSectionIndex !== 0 && (
+                    <button
+                      onClick={() =>
+                        setActiveSectionIndex((prevIndex) =>
+                          Math.max(prevIndex - 1, 0)
+                        )
+                      }
+                      className="flex items-center gap-1 p-3 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-50 transition-all"
+                      disabled={activeSectionIndex === 0}
+                    >
+                      <ChevronLeft className="size-4" /> Previous
+                    </button>
+                  )}
+                  <button
+                    onClick={() =>
+                      setActiveSectionIndex((prevIndex) =>
+                        Math.min(prevIndex + 1, sections.length - 1)
+                      )
+                    }
+                    className={`flex items-center gap-1 p-3 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-50 transition-all ${
+                      activeSectionIndex === sections.length - 1 && "opacity-50"
+                    }`}
+                    disabled={activeSectionIndex === sections.length - 1}
+                  >
+                    Next <ChevronRight className="size-4" />
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
           {/* Right Panel - Preview */}
