@@ -1,18 +1,24 @@
 import React from "react";
 import ClassicTemplate from "./templates/ClassicTemplate";
 import MinimalImageTemplate from "./templates/MinimalImageTemplate";
-import MinimalTemplate from "./templates/MinimalTemplate";
 import ModernTemplate from "./templates/ModernTemplate";
+import ExecutiveTemplate from "./templates/ExecutiveTemplate";
+import ModernSidebarTemplate from "./templates/ModernSidebarTemplate";
+import RightSidebarTemplate from "./templates/RightSidebarTemplate";
 
 const ResumePreview = ({ data, template, accentColor, classes = "" }) => {
   const renderTemplate = () => {
     switch (template) {
       case "modern":
         return <ModernTemplate data={data} accentColor={accentColor} />;
-      case "minimal":
-        return <MinimalTemplate data={data} accentColor={accentColor} />;
       case "minimal-image":
         return <MinimalImageTemplate data={data} accentColor={accentColor} />;
+      case "executive":
+        return <ExecutiveTemplate data={data} accentColor={accentColor} />;
+      case "modern-sidebar":
+        return <ModernSidebarTemplate data={data} accentColor={accentColor} />;
+      case "right-sidebar":
+        return <RightSidebarTemplate data={data} accentColor={accentColor} />;
       default:
         return <ClassicTemplate data={data} accentColor={accentColor} />;
     }

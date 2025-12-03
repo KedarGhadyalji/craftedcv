@@ -23,9 +23,20 @@ const TemplateSelector = ({ selectedTemplate, onChange }) => {
       preview: "Minimal design with a single image and clean typography",
     },
     {
-      id: "minimal",
-      name: "Minimal",
-      preview: "Ultra-clean design that puts your content front and center",
+      id: "executive",
+      name: "Executive",
+      preview: "Professional layout with a bold, high-impact header section",
+    },
+    {
+      id: "modern-sidebar",
+      name: "Modern Sidebar",
+      preview: "Sleek, high-contrast design with a dedicated dark sidebar",
+    },
+    {
+      id: "right-sidebar",
+      name: "Right Sidebar",
+      preview:
+        "Content-first layout with a clean metadata sidebar on the right",
     },
   ];
 
