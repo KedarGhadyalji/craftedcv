@@ -1,24 +1,25 @@
 import React from "react";
 import ClassicTemplate from "./templates/ClassicTemplate";
 import MinimalImageTemplate from "./templates/MinimalImageTemplate";
-import ModernTemplate from "./templates/ModernTemplate";
 import ExecutiveTemplate from "./templates/ExecutiveTemplate";
-import ModernSidebarTemplate from "./templates/ModernSidebarTemplate";
 import RightSidebarTemplate from "./templates/RightSidebarTemplate";
+import CascadeTemplate from "./templates/CascadeTemplate";
+import HalleyTemplate from "./templates/HalleyTemplate";
 
 const ResumePreview = ({ data, template, accentColor, classes = "" }) => {
   const renderTemplate = () => {
     switch (template) {
-      case "modern":
-        return <ModernTemplate data={data} accentColor={accentColor} />;
       case "minimal-image":
         return <MinimalImageTemplate data={data} accentColor={accentColor} />;
       case "executive":
         return <ExecutiveTemplate data={data} accentColor={accentColor} />;
-      case "modern-sidebar":
-        return <ModernSidebarTemplate data={data} accentColor={accentColor} />;
       case "right-sidebar":
         return <RightSidebarTemplate data={data} accentColor={accentColor} />;
+      case "cascade":
+        return <CascadeTemplate data={data} accentColor={accentColor} />;
+      case "halley":
+        return <HalleyTemplate data={data} accentColor={accentColor} />;
+      case "classic":
       default:
         return <ClassicTemplate data={data} accentColor={accentColor} />;
     }

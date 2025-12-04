@@ -12,12 +12,6 @@ const TemplateSelector = ({ selectedTemplate, onChange }) => {
         "A clean, traditional resume format with clear sections and professional typography",
     },
     {
-      id: "modern",
-      name: "Modern",
-      preview:
-        "Sleek design with strategic use of color and modern font choices",
-    },
-    {
       id: "minimal-image",
       name: "Minimal Image",
       preview: "Minimal design with a single image and clean typography",
@@ -28,15 +22,22 @@ const TemplateSelector = ({ selectedTemplate, onChange }) => {
       preview: "Professional layout with a bold, high-impact header section",
     },
     {
-      id: "modern-sidebar",
-      name: "Modern Sidebar",
-      preview: "Sleek, high-contrast design with a dedicated dark sidebar",
-    },
-    {
       id: "right-sidebar",
       name: "Right Sidebar",
       preview:
         "Content-first layout with a clean metadata sidebar on the right",
+    },
+    {
+      id: "cascade",
+      name: "Cascade",
+      preview:
+        "Elegant waterfall timeline design that connects your journey visually",
+    },
+    {
+      id: "halley",
+      name: "Halley",
+      preview:
+        "Compact split-header design optimized for high impact on a single page",
     },
   ];
 

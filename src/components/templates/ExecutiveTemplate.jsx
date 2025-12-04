@@ -5,6 +5,7 @@ import {
   MapPin,
   Linkedin,
   Globe,
+  Github,
   ExternalLink,
 } from "lucide-react";
 
@@ -221,34 +222,6 @@ const ExecutiveTemplate = ({ data, accentColor }) => {
                     {skill}
                   </span>
                 ))}
-              </div>
-            </section>
-          )}
-
-          {/* Websites/Links */}
-          {(data.personal_info?.website || data.personal_info?.linkedin) && (
-            <section>
-              <h2
-                className="text-sm font-bold uppercase border-b-2 mb-4 pb-1"
-                style={{ borderColor: accentColor, color: accentColor }}
-              >
-                Links
-              </h2>
-              <div className="space-y-2 text-xs">
-                {data.personal_info?.website && (
-                  <div className="flex items-center gap-2 text-zinc-600">
-                    <Globe size={12} />
-                    <span className="truncate">
-                      {data.personal_info.website}
-                    </span>
-                  </div>
-                )}
-                {data.personal_info?.linkedin && (
-                  <div className="flex items-center gap-2 text-zinc-600">
-                    <Linkedin size={12} />
-                    <span className="truncate">LinkedIn Profile</span>
-                  </div>
-                )}
               </div>
             </section>
           )}
