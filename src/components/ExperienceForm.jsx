@@ -73,7 +73,7 @@ const ExperienceForm = ({ data, onChange }) => {
                   }
                   type="text"
                   placeholder="Company Name"
-                  className="px-3 py-2"
+                  className="px-3 py-2 text-sm rounded-lg"
                 />
                 <input
                   value={experience.position || ""}
@@ -82,7 +82,7 @@ const ExperienceForm = ({ data, onChange }) => {
                   }
                   type="text"
                   placeholder="Job Title"
-                  className="px-3 py-2"
+                  className="px-3 py-2 text-sm rounded-lg"
                 />
                 <input
                   value={experience.start_date || ""}
@@ -90,7 +90,7 @@ const ExperienceForm = ({ data, onChange }) => {
                     updateExperience(index, "start_date", e.target.value)
                   }
                   type="month"
-                  className="px-3 py-2"
+                  className="px-3 py-2 text-sm rounded-lg"
                 />
                 <input
                   value={experience.end_date || ""}
@@ -99,7 +99,7 @@ const ExperienceForm = ({ data, onChange }) => {
                   }
                   type="month"
                   disabled={experience.is_current}
-                  className="px-3 py-2 disabled:bg-gray-100"
+                  className="px-3 py-2 text-sm rounded-lg disabled:bg-gray-100"
                 />
               </div>
               <label className="flex items-center gap-2">
@@ -113,7 +113,7 @@ const ExperienceForm = ({ data, onChange }) => {
                       e.target.checked ? true : false
                     );
                   }}
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="text-sm rounded-lg border-gray-300 text-blue-600 focus:ring-blue-500"
                 />
                 <span className="text-sm text-gray-700">
                   Currently working here
