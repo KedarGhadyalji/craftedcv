@@ -23,6 +23,7 @@ const EducationForm = ({ data, onChange }) => {
     updated[index] = { ...updated[index], [field]: value };
     onChange(updated);
   };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -45,7 +46,7 @@ const EducationForm = ({ data, onChange }) => {
         <div className="text-center py-8 text-gray-500">
           <GraduationCap className="w-12 h-12 mx-auto mb-3 text-gray-300" />
           <p>No education added yet.</p>
-          <p className="text-sm">Click "Add Education" button to get started.</p>
+          <p className="text-sm">Click "Add Education" to get started.</p>
         </div>
       ) : (
         <div className="space-y-4">
