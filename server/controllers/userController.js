@@ -32,7 +32,7 @@ export const registerUser = async (req, res) => {
       password: hashedPassword,
     });
 
-    // return success message
+    // Return success message
     const token = generateToken(newUser._id);
     newUser.password = undefined;
 
