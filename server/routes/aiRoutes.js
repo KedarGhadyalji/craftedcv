@@ -4,7 +4,7 @@ import {
   enhanceJobDescription,
   enhanceProfessionalSummary,
 } from "../controllers/aiController.js";
-import { updateResume } from "../controllers/resumeController";
+import { updateResume } from "../controllers/resumeController.js";
 
 const aiRouter = express.Router();
 
