@@ -39,25 +39,26 @@ export const deleteResume = async (req, res) => {
 };
 
 // Get user resume by ID
-// POST: /api/resumes/get
+// GET: /api/resumes/get/:resumeId
 export const getResumeById = async (req, res) => {
   try {
     const userId = req.userId;
     const { resumeId } = req.params;
 
+    // Validate ID length/format before querying
+    if (!resumeId || resumeId.length !== 24) {
+      return res.status(400).json({ message: "Invalid Resume ID format" });
+    }
+
     const resume = await Resume.findOne({ userId, _id: resumeId });
 
     if (!resume) {
-      return res.status(401).json({ message: "Resume Not Found" });
+      return res.status(404).json({ message: "Resume Not Found" });
     }
 
-    resume.__v = unknown;
-    resume.createdAt = unknown;
-    resume.updatedAt = unknown;
-
-    // Return success message
     return res.status(200).json({ resume });
   } catch (error) {
+    console.error("❌ GET RESUME ERROR:", error);
     return res.status(400).json({ message: error.message });
   }
 };
@@ -88,40 +89,71 @@ export const updateResume = async (req, res) => {
     const { resumeId, resumeData, removeBackground } = req.body;
     const image = req.file;
 
-    let resumeDataCopy;
-    if (typeof resumeData === "string") {
-      resumeDataCopy = await JSON.parse(resumeData);
-    } else {
-      resumeDataCopy = structuredClone(resumeData);
+    if (!resumeId) {
+      return res.status(400).json({ message: "Resume ID is required." });
     }
 
+    // 1. Parse the resume data first
+    let resumeDataCopy;
+    try {
+      resumeDataCopy =
+        typeof resumeData === "string" ? JSON.parse(resumeData) : resumeData;
+    } catch (parseError) {
+      return res
+        .status(400)
+        .json({ message: "Invalid JSON format in resumeData." });
+    }
+
+    // 2. NOW delete the problematic fields (Moved from the top)
+    if (resumeDataCopy) {
+      delete resumeDataCopy._id;
+      delete resumeDataCopy.userId;
+      delete resumeDataCopy.__v;
+      delete resumeDataCopy.createdAt;
+      delete resumeDataCopy.updatedAt;
+    }
+
+    // 3. Handle Image Upload
+    // Inside updateResume in server/controllers/resumeController.js
+
+    // 3. Handle Image Upload
     if (image) {
       const imageBufferData = fs.createReadStream(image.path);
-
       const response = await imagekit.files.upload({
         file: imageBufferData,
-        fileName: "resume.png",
+        fileName: `resume_${resumeId}.png`,
         folder: "user-resumes",
         transformation: {
-          pre:
-            "w-300,h-300,fo-face,z-0.75" +
-            (removeBackground ? ",e-bgremove" : ""),
+          pre: `w-300,h-300,fo-face,z-0.75`, // Kept fo-face to center on face, but removed e-bgremove
         },
       });
 
+      if (!resumeDataCopy.personal_info) resumeDataCopy.personal_info = {};
       resumeDataCopy.personal_info.image = response.url;
+      fs.unlinkSync(image.path);
     }
 
-    const resume = await Resume.findByIdAndUpdate(
-      { userId, _id: resumeId },
-      resumeDataCopy,
+    // 4. Update Database
+    const updatedResume = await Resume.findOneAndUpdate(
+      { _id: resumeId, userId: userId },
+      { $set: resumeDataCopy },
       {
         returnDocument: "after",
+        runValidators: true,
       },
     );
 
-    return res.status(200).json({ message: "Saved successfully!", resume });
+    if (!updatedResume) {
+      return res
+        .status(404)
+        .json({ message: "Resume not found or unauthorized." });
+    }
+
+    return res
+      .status(200)
+      .json({ message: "Saved successfully!", resume: updatedResume });
   } catch (error) {
+    console.error("❌ DETAILED SERVER ERROR:", error);
     return res.status(400).json({ message: error.message });
   }
 };

@@ -5,7 +5,6 @@ import Layout from "./pages/Layout";
 import Dashboard from "./pages/Dashboard";
 import ResumeBuilder from "./pages/ResumeBuilder";
 import Preview from "./pages/Preview";
-import Login from "./pages/Login";
 import { useDispatch } from "react-redux";
 import api from "./configs/api";
 import { login, setLoading } from "./app/features/authSlice";
@@ -16,23 +15,28 @@ const App = () => {
 
   const getUserData = async () => {
     const token = localStorage.getItem("token");
+
+    if (!token) {
+      dispatch(setLoading(false));
+      return;
+    }
+
     try {
-      if (token) {
-        const { data } = await api.get("/api/users/data", {
-          headers: {
-            Authorization: token,
-          },
-        });
-      }
+      // Notice: No headers needed here anymore! The Interceptor handles it.
+      const { data } = await api.get("/api/users/data");
+
       if (data.user) {
         dispatch(login({ token, user: data.user }));
-        dispatch(setLoading(false));
-      } else {
-        dispatch(setLoading(false));
       }
     } catch (error) {
+      console.error(
+        "Auth initialization failed:",
+        error.response?.data?.message || error.message,
+      );
+      // If token is invalid, clear it
+      localStorage.removeItem("token");
+    } finally {
       dispatch(setLoading(false));
-      console.log(error.message);
     }
   };
 

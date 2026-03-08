@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { dummyResumeData } from "../assets/assets";
 import {
   ArrowLeftIcon,
   Briefcase,
@@ -40,7 +39,7 @@ const ResumeBuilder = () => {
     experience: [],
     education: [],
     project: [],
-    skill: [],
+    skills: [],
     template: "classic",
     accent_color: "#3B82F6",
     public: false,
@@ -50,16 +49,29 @@ const ResumeBuilder = () => {
     try {
       const { data } = await api.get("/api/resumes/get/" + resumeId, {
         headers: {
-          Authorization: token,
+          Authorization: `Bearer ${token}`,
         },
       });
 
-      if (data.resume) {
-        setResumeData(data.resume);
-        document.title = data.resume.title;
+      if (data && data.resume) {
+        // Create a local copy so we don't mutate the response directly
+        const fetchedResume = { ...data.resume };
+
+        // --- CLEANUP START ---
+        // Strip out database-specific metadata so it doesn't interfere with our Save logic
+        delete fetchedResume.__v;
+        delete fetchedResume.createdAt;
+        delete fetchedResume.updatedAt;
+        // --- CLEANUP END ---
+
+        setResumeData(fetchedResume);
+        document.title = fetchedResume.title || "Resume Builder";
       }
     } catch (error) {
-      console.log(error.message);
+      // Improved error logging
+      const errorMsg = error.response?.data?.message || error.message;
+      console.error("Error loading resume:", errorMsg);
+      toast.error("Failed to load resume: " + errorMsg);
     }
   };
 
@@ -92,7 +104,7 @@ const ResumeBuilder = () => {
 
       const { data } = await api.put("/api/resumes/update", formData, {
         headers: {
-          Authorization: token,
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -122,7 +134,13 @@ const ResumeBuilder = () => {
     try {
       let updatedResumeData = structuredClone(resumeData);
 
-      // remove image from updatedResumeData
+      // FIX 1: Remove _id and userId from the data object to avoid Mongoose casting errors
+      delete updatedResumeData._id;
+      delete updatedResumeData.userId;
+      delete updatedResumeData.createdAt;
+      delete updatedResumeData.updatedAt;
+
+      // Handle image logic
       if (typeof resumeData.personal_info.image === "object") {
         delete updatedResumeData.personal_info.image;
       }
@@ -130,12 +148,16 @@ const ResumeBuilder = () => {
       const formData = new FormData();
       formData.append("resumeId", resumeId);
       formData.append("resumeData", JSON.stringify(updatedResumeData));
-      removeBackground && formData.append("removeBackground", "yes");
-      typeof resumeData.personal_info.image === "object" &&
+
+      if (removeBackground) formData.append("removeBackground", "yes");
+
+      if (typeof resumeData.personal_info.image === "object") {
         formData.append("image", resumeData.personal_info.image);
+      }
+
       const { data } = await api.put("/api/resumes/update", formData, {
         headers: {
-          Authorization: token,
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -143,6 +165,7 @@ const ResumeBuilder = () => {
       toast.success(data.message);
     } catch (error) {
       console.error("Error saving resume:", error);
+      throw error;
     }
   };
 

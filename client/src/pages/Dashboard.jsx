@@ -9,7 +9,6 @@ import {
   XIcon,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import { dummyResumeData } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import api from "../configs/api";
@@ -33,7 +32,7 @@ const Dashboard = () => {
     try {
       const { data } = await api.get("/api/users/resumes", {
         headers: {
-          Authorization: token,
+          Authorization: `Bearer ${token}`,
         },
       });
       setAllResumes(data.resumes);
@@ -50,7 +49,7 @@ const Dashboard = () => {
         { title },
         {
           headers: {
-            Authorization: token,
+            Authorization: `Bearer ${token}`,
           },
         },
       );
@@ -73,7 +72,7 @@ const Dashboard = () => {
         { title, resumeText },
         {
           headers: {
-            Authorization: token,
+            Authorization: `Bearer ${token}`,
           },
         },
       );
@@ -93,7 +92,7 @@ const Dashboard = () => {
       const { data } = await api.put(
         "/api/resumes/update",
         { resumeId: editResumeId, resumeData: { title } },
-        { headers: { Authorization: token } },
+        { headers: { Authorization: `Bearer ${token}` } },
       );
       setAllResumes(
         allResumes.map((resume) =>
@@ -116,7 +115,7 @@ const Dashboard = () => {
       if (confirm) {
         const { data } = await api.delete(`/api/resumes/delete/${resumeId}`, {
           headers: {
-            Authorization: token,
+            Authorization: `Bearer ${token}`,
           },
         });
         setAllResumes(allResumes.filter((resume) => resume._id !== resumeId));
