@@ -71,18 +71,20 @@ const PersonalInfoForm = ({ data, onChange }) => {
   ];
 
   return (
-    <div className="relative">
-      <h3 className="text-lg font-semibold text-gray-900">
-        Personal Information
-      </h3>
-      <p className="text-sm text-gray-600">
-        Get started with the personal information!
-      </p>
+    <div className="relative animate-in fade-in duration-500">
+      <div className="mb-6">
+        <h3 className="text-lg font-bold text-slate-800 tracking-tight">
+          Personal Information
+        </h3>
+        <p className="text-xs text-slate-500">
+          The foundation of your professional identity.
+        </p>
+      </div>
 
-      {/* Image Section */}
-      <div className="flex items-center gap-4 mt-5">
+      {/* Image Section - Quartz Style */}
+      <div className="flex items-center gap-6 p-4 bg-slate-50/50 rounded-2xl border border-slate-100 mb-8">
         <label className="relative group cursor-pointer">
-          <div className="w-20 h-20 rounded-full overflow-hidden ring-2 ring-slate-200 group-hover:ring-blue-400 transition-all">
+          <div className="w-20 h-20 rounded-full overflow-hidden ring-4 ring-white shadow-md group-hover:ring-indigo-100 transition-all duration-300">
             {data.image ? (
               <img
                 src={
@@ -94,13 +96,13 @@ const PersonalInfoForm = ({ data, onChange }) => {
                 className="w-full h-full object-cover"
               />
             ) : (
-              <div className="w-full h-full bg-slate-50 flex items-center justify-center text-slate-400">
+              <div className="w-full h-full bg-indigo-50 flex items-center justify-center text-indigo-300">
                 <User className="size-8" />
               </div>
             )}
           </div>
-          <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 rounded-full transition-opacity">
-            <Upload className="text-white size-5" />
+          <div className="absolute inset-0 flex items-center justify-center bg-indigo-600/40 opacity-0 group-hover:opacity-100 rounded-full transition-all duration-300 backdrop-blur-[2px]">
+            <Upload className="text-white size-6" />
           </div>
           <input
             type="file"
@@ -109,25 +111,27 @@ const PersonalInfoForm = ({ data, onChange }) => {
             onChange={handleFileChange}
           />
         </label>
-        <div className="text-sm">
-          <p className="font-medium text-gray-700">Profile Picture</p>
-          <p className="text-gray-500 text-xs">
-            Recommended: Square image, PNG or JPG
+        <div>
+          <p className="font-bold text-slate-700 text-sm">Profile Portrait</p>
+          <p className="text-slate-400 text-[11px] leading-relaxed mt-0.5">
+            Square aspect ratio recommended.
+            <br />
+            Supports JPG, PNG.
           </p>
         </div>
       </div>
 
-      {/* Crop Modal */}
+      {/* Crop Modal - Glassmorphism */}
       {showModal && (
-        <div className="fixed inset-0 z-999 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-          <div className="bg-white rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl">
-            <div className="p-4 border-b flex justify-between items-center">
-              <h4 className="font-bold text-gray-800">Crop Profile Image</h4>
+        <div className="fixed inset-0 z-999 flex items-center justify-center p-6 bg-slate-900/60 backdrop-blur-md animate-in fade-in duration-300">
+          <div className="bg-white/90 backdrop-blur-2xl border border-white rounded-4xl w-full max-w-lg overflow-hidden shadow-2xl scale-in-center">
+            <div className="p-6 border-b border-slate-100 flex justify-between items-center bg-white/50">
+              <h4 className="font-black text-slate-800">Precision Crop</h4>
               <button
                 onClick={() => setShowModal(false)}
-                className="text-gray-500 hover:bg-gray-100 p-1 rounded-full"
+                className="text-slate-400 hover:text-slate-800 transition-colors"
               >
-                <X className="size-5" />
+                <X className="size-6" />
               </button>
             </div>
 
@@ -145,11 +149,16 @@ const PersonalInfoForm = ({ data, onChange }) => {
               />
             </div>
 
-            <div className="p-6 space-y-4">
-              <div className="space-y-2">
-                <label className="text-xs font-semibold text-gray-500 uppercase">
-                  Zoom
-                </label>
+            <div className="p-8 space-y-6">
+              <div className="space-y-3">
+                <div className="flex justify-between">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                    Adjust Zoom
+                  </label>
+                  <span className="text-[10px] font-bold text-indigo-600">
+                    {Math.round(zoom * 100)}%
+                  </span>
+                </div>
                 <input
                   type="range"
                   min={1}
@@ -157,21 +166,21 @@ const PersonalInfoForm = ({ data, onChange }) => {
                   step={0.1}
                   value={zoom}
                   onChange={(e) => setZoom(e.target.value)}
-                  className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+                  className="w-full h-1.5 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-indigo-600"
                 />
               </div>
-              <div className="flex justify-end gap-3 pt-2">
+              <div className="flex justify-end gap-3">
                 <button
                   onClick={() => setShowModal(false)}
-                  className="px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 rounded-lg"
+                  className="px-6 py-2.5 text-sm font-bold text-slate-500 hover:bg-slate-50 rounded-xl transition-all"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleDone}
-                  className="px-6 py-2 bg-blue-600 text-white text-sm font-bold rounded-lg hover:bg-blue-700 shadow-lg shadow-blue-200 transition-all"
+                  className="px-8 py-2.5 bg-indigo-600 text-white text-sm font-bold rounded-xl hover:bg-indigo-700 shadow-xl shadow-indigo-500/20 active:scale-95 transition-all"
                 >
-                  Apply Crop
+                  Apply Changes
                 </button>
               </div>
             </div>
@@ -179,23 +188,25 @@ const PersonalInfoForm = ({ data, onChange }) => {
         </div>
       )}
 
-      {/* Input Fields */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+      {/* Input Fields Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-1">
         {fields.map((field) => {
           const Icon = field.icon;
           return (
-            <div key={field.key} className="space-y-1 mt-5">
-              <label className="flex items-center gap-2 text-sm font-medium text-gray-600">
-                <Icon className="size-4" />
+            <div key={field.key} className="space-y-1.5 mt-5">
+              <label className="flex items-center gap-2 text-[11px] font-bold text-slate-400 uppercase tracking-wider ml-1">
+                <Icon className="size-3.5 text-indigo-500" />
                 {field.label}
-                {field.required && <span className="text-red-500">*</span>}
+                {field.required && (
+                  <span className="text-rose-500 ml-0.5">*</span>
+                )}
               </label>
               <input
                 type={field.type}
                 value={data[field.key] || ""}
                 onChange={(e) => handleChange(field.key, e.target.value)}
-                className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-sm"
-                placeholder={`Enter your ${field.label.toLowerCase()}`}
+                className="w-full px-4 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition-all text-sm placeholder:text-slate-300"
+                placeholder={`Your ${field.label.toLowerCase()}...`}
                 required={field.required}
               />
             </div>

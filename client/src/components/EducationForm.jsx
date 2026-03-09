@@ -25,17 +25,20 @@ const EducationForm = ({ data, onChange }) => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-in fade-in duration-500">
+      {/* Header Section */}
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="flex items-center gap-2 text-lg font-semibold text-gray-900">
+          <h3 className="text-lg font-bold text-slate-800 tracking-tight">
             Education
           </h3>
-          <p className="text-sm text-gray-500">Add your education details</p>
+          <p className="text-xs text-slate-500">
+            Highlight your academic background
+          </p>
         </div>
         <button
           onClick={addEducation}
-          className="flex items-center gap-2 px-3 py-1 text-sm bg-green-100 text-green-700 rounded-lg hover:bg-green-200 transition-colors"
+          className="flex items-center gap-2 px-4 py-2 text-xs font-bold bg-indigo-50 text-indigo-600 rounded-xl hover:bg-indigo-600 hover:text-white transition-all duration-300 active:scale-95 shadow-sm"
         >
           <Plus className="size-4" />
           Add Education
@@ -43,71 +46,117 @@ const EducationForm = ({ data, onChange }) => {
       </div>
 
       {data.length === 0 ? (
-        <div className="text-center py-8 text-gray-500">
-          <GraduationCap className="w-12 h-12 mx-auto mb-3 text-gray-300" />
-          <p>No education added yet.</p>
-          <p className="text-sm">Click "Add Education" to get started.</p>
+        /* Empty State with Glassmorphism */
+        <div className="text-center py-12 bg-slate-50/50 rounded-4xl border border-dashed border-slate-200">
+          <div className="size-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mx-auto mb-4">
+            <GraduationCap className="size-8 text-slate-300" />
+          </div>
+          <p className="text-slate-600 font-medium">No education added yet.</p>
+          <p className="text-xs text-slate-400 mt-1">
+            Click the button above to start.
+          </p>
         </div>
       ) : (
         <div className="space-y-4">
           {data.map((education, index) => (
             <div
               key={index}
-              className="p-4 border border-gray-200 rounded-lg space-y-3"
+              className="p-5 bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 relative group"
             >
-              <div className="flex justify-between items-start">
-                <h4>Education #{index + 1}</h4>
+              {/* Card Header */}
+              <div className="flex justify-between items-center mb-4">
+                <div className="flex items-center gap-2">
+                  <span className="size-6 flex items-center justify-center bg-indigo-100 text-indigo-600 text-[10px] font-bold rounded-full">
+                    {index + 1}
+                  </span>
+                  <h4 className="text-sm font-bold text-slate-700 uppercase tracking-wider">
+                    Education Entry
+                  </h4>
+                </div>
                 <button
                   onClick={() => removeEducation(index)}
-                  className="text-red-500 hover:text-red-700 transition-colors"
+                  className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all"
                 >
                   <Trash2 className="size-4" />
                 </button>
               </div>
-              <div className="grid md:grid-cols-2 gap-3">
+
+              {/* Form Grid */}
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-[10px] font-bold text-slate-400 uppercase ml-1">
+                    Institution
+                  </label>
+                  <input
+                    value={education.institution || ""}
+                    onChange={(e) =>
+                      updateEducation(index, "institution", e.target.value)
+                    }
+                    type="text"
+                    placeholder="e.g. Stanford University"
+                    className="w-full px-4 py-2.5 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition-all"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-[10px] font-bold text-slate-400 uppercase ml-1">
+                    Degree
+                  </label>
+                  <input
+                    value={education.degree || ""}
+                    onChange={(e) =>
+                      updateEducation(index, "degree", e.target.value)
+                    }
+                    type="text"
+                    placeholder="e.g. Bachelor of Science"
+                    className="w-full px-4 py-2.5 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition-all"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-[10px] font-bold text-slate-400 uppercase ml-1">
+                    Field of Study
+                  </label>
+                  <input
+                    value={education.field || ""}
+                    onChange={(e) =>
+                      updateEducation(index, "field", e.target.value)
+                    }
+                    type="text"
+                    placeholder="e.g. Computer Science"
+                    className="w-full px-4 py-2.5 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition-all"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-[10px] font-bold text-slate-400 uppercase ml-1">
+                    Graduation Date
+                  </label>
+                  <input
+                    value={education.graduation_date || ""}
+                    onChange={(e) =>
+                      updateEducation(index, "graduation_date", e.target.value)
+                    }
+                    type="month"
+                    className="w-full px-4 py-2.5 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition-all"
+                  />
+                </div>
+              </div>
+
+              <div className="mt-4 space-y-1">
+                <label className="text-[10px] font-bold text-slate-400 uppercase ml-1">
+                  GPA (Optional)
+                </label>
                 <input
-                  value={education.institution || ""}
+                  value={education.gpa || ""}
                   onChange={(e) =>
-                    updateEducation(index, "institution", e.target.value)
+                    updateEducation(index, "gpa", e.target.value)
                   }
                   type="text"
-                  placeholder="Institution Name"
-                  className="px-3 py-2 text-sm"
-                />
-                <input
-                  value={education.degree || ""}
-                  onChange={(e) =>
-                    updateEducation(index, "degree", e.target.value)
-                  }
-                  type="text"
-                  placeholder="Degree (e.g., Bachelor's, Master's)"
-                  className="px-3 py-2 text-sm"
-                />
-                <input
-                  value={education.field || ""}
-                  onChange={(e) =>
-                    updateEducation(index, "field", e.target.value)
-                  }
-                  type="text"
-                  placeholder="Field of Study"
-                  className="px-3 py-2 text-sm"
-                />
-                <input
-                  value={education.graduation_date || ""}
-                  onChange={(e) =>
-                    updateEducation(index, "graduation_date", e.target.value)
-                  }
-                  type="month"
-                  className="px-3 py-2 text-sm"
+                  placeholder="e.g. 3.8/4.0"
+                  className="w-full px-4 py-2.5 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition-all"
                 />
               </div>
-              <input
-                value={education.gpa || ""}
-                onChange={(e) => updateEducation(index, "gpa", e.target.value)}
-                type="text"
-                placeholder="GPA (Optional)"
-                className="px-3 py-2 text-sm"
-              />
             </div>
           ))}
         </div>

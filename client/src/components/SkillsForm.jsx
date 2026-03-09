@@ -23,21 +23,23 @@ const SkillsForm = ({ data, onChange }) => {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6 animate-in fade-in duration-500">
+      {/* Header */}
       <div>
-        <h3 className="flex items-center gap-2 text-lg font-semibold text-gray-900">
-          Skills
+        <h3 className="text-lg font-bold text-slate-800 tracking-tight">
+          Skills & Expertise
         </h3>
-        <p className="text-sm text-gray-500">
-          Add your technical and soft skills
+        <p className="text-xs text-slate-500">
+          Add technical proficiencies and soft skills
         </p>
       </div>
 
+      {/* Input Group */}
       <div className="flex gap-2">
         <input
           type="text"
-          placeholder="Enter a skill (e.g., JavaScript, Project Management)"
-          className="flex-1 px-3 py-2 text-sm"
+          placeholder="e.g., React, Node.js, Leadership"
+          className="flex-1 px-4 py-2.5 text-sm bg-slate-50/50 border border-slate-200 rounded-xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition-all placeholder:text-slate-300"
           onChange={(e) => setNewSkill(e.target.value)}
           value={newSkill}
           onKeyDown={handleKeyPress}
@@ -45,40 +47,52 @@ const SkillsForm = ({ data, onChange }) => {
         <button
           onClick={addSkill}
           disabled={!newSkill.trim()}
-          className="flex items-center gap-2 px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="flex items-center gap-2 px-6 py-2.5 text-xs font-bold bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 shadow-lg shadow-indigo-500/20 transition-all active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed"
         >
           <Plus className="size-4" /> Add
         </button>
       </div>
+
+      {/* Skills Display Area */}
       {data.length > 0 ? (
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2.5 p-1">
           {data.map((skill, index) => (
-            <span
+            <div
               key={index}
-              className="flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm"
+              className="group flex items-center gap-1.5 px-4 py-1.5 bg-indigo-50 border border-indigo-100 text-indigo-700 rounded-full text-[13px] font-semibold hover:bg-indigo-100 hover:border-indigo-200 transition-all animate-in zoom-in duration-200"
             >
               {skill}
               <button
                 onClick={() => removeSkill(index)}
-                className="ml-1 hover:bg-blue-200 rounded-full p-0.5 transition-colors"
+                className="text-indigo-400 hover:text-rose-500 transition-colors"
               >
-                <X className="w-3 h-3" />
+                <X className="size-3.5 stroke-3" />
               </button>
-            </span>
+            </div>
           ))}
         </div>
       ) : (
-        <div className="text-center py-6 text-gray-500">
-          <Sparkles className="w-10 h-10 mx-auto mb-2 text-gray-300" />
-          <p>No skills added yet.</p>
-          <p className="text-sm">Add your technical and soft skills above.</p>
+        /* Empty State */
+        <div className="text-center py-10 bg-slate-50/50 rounded-4xl border border-dashed border-slate-200">
+          <div className="size-14 bg-white rounded-2xl shadow-sm flex items-center justify-center mx-auto mb-4">
+            <Sparkles className="size-7 text-slate-300" />
+          </div>
+          <p className="text-slate-600 font-medium">No skills listed.</p>
+          <p className="text-xs text-slate-400 mt-1">
+            Start typing above to build your expertise list.
+          </p>
         </div>
       )}
-      <div className="bg-blue-50 p-3 rounded-lg">
-        <p className="text-sm text-blue-800">
-          <strong>Tip:</strong> Add 8-12 relevant skills. Include both technical
-          skills (programming languages, tools) and soft skills (leadership,
-          communication).
+
+      {/* Quartz Pro Tip Box */}
+      <div className="bg-indigo-50/30 border border-indigo-100/50 rounded-2xl p-4">
+        <p className="text-[11px] text-indigo-600/80 font-medium leading-relaxed">
+          <span className="font-black uppercase mr-1 tracking-wider">
+            Pro Tip:
+          </span>
+          Aim for 8-12 relevant skills. Mix high-demand technical tools (React,
+          AWS) with key soft skills (Communication, Teamwork) to optimize for
+          ATS.
         </p>
       </div>
     </div>
