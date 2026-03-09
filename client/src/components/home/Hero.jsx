@@ -11,8 +11,13 @@ const Hero = () => {
       {/* Navbar - Modern Quartz Glass */}
       <nav className="flex items-center justify-between px-6 md:px-16 lg:px-24 xl:px-32 py-4 border-b border-white/40 font-medium relative z-50 bg-white/70 backdrop-blur-xl shadow-sm">
         {/* Logo */}
-        <Link to="/">
-          <img src="/logo.svg" alt="CraftedCV Logo" className="h-10 w-auto" />
+        <Link to="/" className="flex items-center gap-1 group">
+          <span className="text-2xl font-black tracking-tighter text-slate-900">
+            Crafted
+            <span className="bg-linear-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
+              CV
+            </span>
+          </span>
         </Link>
 
         {/* Hamburger (Mobile) */}

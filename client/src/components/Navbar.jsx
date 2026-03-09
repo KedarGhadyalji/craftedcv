@@ -19,8 +19,13 @@ const Navbar = () => {
     <div className="sticky top-0 z-100 w-full bg-white/70 backdrop-blur-xl border-b border-white/40 shadow-sm">
       <nav className="flex items-center justify-between max-w-7xl mx-auto px-6 py-3 text-slate-800 transition-all">
         {/* Logo Section */}
-        <Link to="/" className="hover:opacity-80 transition-opacity">
-          <img src="/logo.svg" alt="logo" className="h-10 w-auto" />
+        <Link to="/" className="flex items-center gap-1 group">
+          <span className="text-2xl font-black tracking-tighter text-slate-900">
+            Crafted
+            <span className="bg-linear-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
+              CV
+            </span>
+          </span>
         </Link>
 
         <div className="flex items-center gap-6">
@@ -39,7 +44,10 @@ const Navbar = () => {
             onClick={logoutUser}
             className="group flex items-center gap-2 px-6 py-2 bg-white text-slate-600 text-sm font-bold border border-slate-200 rounded-xl hover:border-red-200 hover:text-red-600 hover:bg-red-50 transition-all duration-300 active:scale-95 shadow-sm"
           >
-            <LogOut size={16} className="group-hover:-translate-x-0.5 transition-transform" />
+            <LogOut
+              size={16}
+              className="group-hover:-translate-x-0.5 transition-transform"
+            />
             <span>Logout</span>
           </button>
         </div>
