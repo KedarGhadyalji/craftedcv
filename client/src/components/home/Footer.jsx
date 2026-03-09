@@ -1,51 +1,80 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Instagram, Linkedin, Github } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Github } from "lucide-react";
 
 const Footer = () => {
+  // Get the current year dynamically
+  const currentYear = new Date().getFullYear();
+
   return (
-    // Matching the bg-bottom and removing the harsh border for a clean Quartz flow
-    <footer className="flex flex-col items-center justify-center w-full pb-20 pt-16 bg-[url(https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/hero/gradientBackground.png)] bg-cover bg-bottom font-poppins relative">
-      {/* Subtle Glow Effect */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-32 bg-indigo-400/5 blur-[120px] pointer-events-none"></div>
-
-      {/* Branding Logo */}
-      <Link to="/" className="mb-4 hover:opacity-80 transition-opacity relative z-10">
-        <img src="/logo.svg" alt="CraftedCV" className="h-10 w-auto" />
-      </Link>
-
-      {/* Copyright Text */}
-      <p className="mt-2 text-center text-sm tracking-wide text-slate-500 relative z-10">
-        Copyright © 2026{" "}
+    <footer className="flex flex-col bg-slate-50 items-center justify-around w-full py-16 text-sm text-slate-500 font-poppins border-t border-slate-100">
+      {/* Navigation Links */}
+      <div className="flex flex-wrap justify-center items-center gap-6 md:gap-8 px-4">
         <Link
           to="/"
-          className="text-indigo-600 font-semibold hover:underline transition"
+          className="font-medium text-slate-500 hover:text-indigo-600 transition-all"
         >
-          CraftedCV
+          Home
         </Link>
-        . All rights reserved.
-      </p>
+        <Link
+          to="#"
+          className="font-medium text-slate-500 hover:text-indigo-600 transition-all"
+        >
+          About
+        </Link>
+        <Link
+          to="#"
+          className="font-medium text-slate-500 hover:text-indigo-600 transition-all"
+        >
+          Services
+        </Link>
+        <Link
+          to="#"
+          className="font-medium text-slate-500 hover:text-indigo-600 transition-all"
+        >
+          Contact
+        </Link>
+        <Link
+          to="#"
+          className="font-medium text-slate-500 hover:text-indigo-600 transition-all"
+        >
+          Help
+        </Link>
+      </div>
 
       {/* Social Icons */}
-      <div className="flex items-center gap-8 mt-8 relative z-10">
+      <div className="flex items-center gap-6 mt-8 text-indigo-500/80">
         <a
           href="#"
-          className="text-slate-400 hover:-translate-y-1 hover:text-indigo-600 transition-all duration-300"
+          className="hover:-translate-y-1 hover:text-indigo-600 transition-all duration-300"
+        >
+          <Facebook size={22} strokeWidth={2} />
+        </a>
+        <a
+          href="#"
+          className="hover:-translate-y-1 hover:text-indigo-600 transition-all duration-300"
         >
           <Instagram size={22} strokeWidth={2} />
         </a>
         <a
           href="#"
-          className="text-slate-400 hover:-translate-y-1 hover:text-indigo-600 transition-all duration-300"
+          className="hover:-translate-y-1 hover:text-indigo-600 transition-all duration-300"
         >
           <Linkedin size={22} strokeWidth={2} />
         </a>
         <a
           href="#"
-          className="text-slate-400 hover:-translate-y-1 hover:text-indigo-600 transition-all duration-300"
+          className="hover:-translate-y-1 hover:text-indigo-600 transition-all duration-300"
         >
           <Github size={22} strokeWidth={2} />
         </a>
+      </div>
+
+      {/* Branding & Dynamic Copyright */}
+      <div className="mt-8 flex flex-col items-center gap-2">
+        <p className="text-center text-slate-400 text-xs tracking-wide">
+          Copyright © {currentYear} CraftedCV. All rights reserved.
+        </p>
       </div>
     </footer>
   );
