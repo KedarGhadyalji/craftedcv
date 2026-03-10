@@ -6,6 +6,15 @@ const Hero = () => {
   const { user } = useSelector((state) => state.auth);
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const scrollToSection = (e, id) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+      setMenuOpen(false); // Close mobile menu on click
+    }
+  };
+
   return (
     <div className="bg-[url(https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/hero/gradientBackground.png)] bg-cover bg-center text-sm text-slate-500 min-h-screen font-poppins">
       {/* Navbar - Modern Quartz Glass */}
@@ -43,35 +52,33 @@ const Hero = () => {
           className={`${menuOpen ? "flex" : "hidden"} absolute top-full left-0 w-full flex-col bg-white/95 backdrop-blur-lg shadow-xl px-6 py-4 md:static md:w-auto md:flex md:flex-row md:items-center gap-8 md:bg-transparent md:shadow-none z-50`}
         >
           <li>
-            <a
+            {/* Using Link for the root route */}
+            <Link
+              to="/"
               className="hover:text-indigo-600 md:hover:underline underline-offset-8 transition"
-              href="#"
+              onClick={() => setMenuOpen(false)}
             >
               Home
+            </Link>
+          </li>
+          <li>
+            {/* Creations Section Link */}
+            <a
+              href="#creations"
+              className="hover:text-indigo-600 md:hover:underline underline-offset-8 transition cursor-pointer"
+              onClick={(e) => scrollToSection(e, "creations")}
+            >
+              Creations
             </a>
           </li>
           <li>
+            {/* GitHub CTA Section Link */}
             <a
-              className="hover:text-indigo-600 md:hover:underline underline-offset-8 transition"
-              href="#features"
+              href="#contribute"
+              className="hover:text-indigo-600 md:hover:underline underline-offset-8 transition cursor-pointer"
+              onClick={(e) => scrollToSection(e, "contribute")}
             >
-              Features
-            </a>
-          </li>
-          <li>
-            <a
-              className="hover:text-indigo-600 md:hover:underline underline-offset-8 transition"
-              href="#testimonials"
-            >
-              Testimonials
-            </a>
-          </li>
-          <li>
-            <a
-              className="hover:text-indigo-600 md:hover:underline underline-offset-8 transition"
-              href="#contact"
-            >
-              Contact
+              Contribute
             </a>
           </li>
 
